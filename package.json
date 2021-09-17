@@ -1,0 +1,40 @@
+{
+	"name": "vite-plugin-css-modules",
+	"version": "0.0.1",
+	"description": "vite projects to support Not .module.xxx can use css modules ",
+	"author": "wangzongming",
+	"license": "MIT",
+	"repository": "https://github.com/wangzongming/vite-plugin-require",
+	"main": "dist/index.js",
+	"engines": {
+		"node": ">=8",
+		"npm": ">=5"
+	},
+	"scripts": {
+		"build": "tsc -p ."
+	},
+	"peerDependencies": {
+		"vite": ">2.0.0-0",
+		"@babel/parser": "^7.15.6",
+		"@babel/traverse": "^7.15.4",
+		"@babel/generator": "^7.15.4",
+		"postcss":"^8.3.6", 
+		"less":"^4.1.1",
+		"postcss-modules": "^4.2.2"
+	},
+	"devDependencies": {
+		"typescript": "^4.4.3",
+		"vite": "latest"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"vite",
+		"vite-plugin",
+		"vite-plugin-css-modules"
+	],
+	"dependencies": {
+		"postcss-modules": "^4.2.2"
+	}
+}
