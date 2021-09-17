@@ -101,7 +101,7 @@ export default function plugin(opts: Opts = {}): Plugin {
                 const singlelineCommentsRE = /\/\/.*/g
                 styleCon = styleCon.replace(singlelineCommentsRE, '')
  
-                let { code: css, modules } = await compileCSS(id, styleCon);
+                let { code: css, modules } = await compileCSS(id, styleCon, opts.postcssPlugins || [], opts.postcssModulesOpts || {});
                 // 替换所有 url 资源
                 const urls: string[] = css.match(urlCodeReg) || [];
                 urls.forEach((urlVal) => {
@@ -121,7 +121,7 @@ export default function plugin(opts: Opts = {}): Plugin {
                         // 当前文件，需要编译后放置到引用的文件顶部
                         const fileUrl = item.file;
                         const impFC = await fs.readFile(fileUrl, "utf8");
-                        const impFCByTransformed = await compileCSS(fileUrl, impFC); 
+                        const impFCByTransformed = await compileCSS(fileUrl, impFC, opts.postcssPlugins || [], opts.postcssModulesOpts || {}); 
                         // 将这个modules合并到主文件的 module
                         for (const key in impFCByTransformed.modules) {
                             const module = impFCByTransformed.modules[key];
@@ -190,16 +190,20 @@ type compileCSSRes = {
     messages: any[],
 }
 
-async function compileCSS(id: string, code: string): Promise<compileCSSRes> {
+async function compileCSS(id: string, code: string, _postcssPlugins?: any[], _postcssModules?: Record<string, any>): Promise<compileCSSRes> {
     let modules;
-    let postcssPlugins = [];
+    let postcssPlugins = [..._postcssPlugins];
     postcssPlugins.unshift(
         postcssModules({
             ...modulesOptions,
+            ..._postcssModules,
             getJSON(cssFileName: string, _modules: Record<string, any>, outputFileName: string) {
                 modules = _modules;
                 if (modulesOptions && typeof modulesOptions.getJSON === "function") {
                     modulesOptions.getJSON(cssFileName, _modules, outputFileName);
+                }
+                if (_postcssModules && typeof _postcssModules.getJSON === "function") {
+                    _postcssModules.getJSON(cssFileName, _modules, outputFileName);
                 }
             },
         })
