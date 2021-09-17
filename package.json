@@ -1,7 +1,7 @@
 {
 	"name": "vite-plugin-css-modules",
 	"version": "0.0.1",
-	"description": "vite projects to support Not .module.xxx can use css modules ",
+	"description": "vite projects to support can use css modules, Not just .module.xxx ",
 	"author": "wangzongming",
 	"license": "MIT",
 	"repository": "https://github.com/wangzongming/vite-plugin-require",
