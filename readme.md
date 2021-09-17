@@ -1,6 +1,6 @@
 # vite-plugin-css-modules
 
-[![npm](https://img.shields.io/npm/v/vite-plugin-css-modules.svg)](https://www.npmjs.com/package/vite-remark-html)
+[![npm](https://img.shields.io/npm/v/vite-plugin-css-modules.svg)](https://www.npmjs.com/package/vite-plugin-css-modules)
 
 Make all style files supported css module, not just xxx.module.xxx
 
